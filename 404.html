@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ShiftFlow – Schichtplan, Schlaf &amp; Familie</title>
+<meta name="description" content="ShiftFlow: Schichtplan mit Rotationen, schichtgerechte Schlaf-Hinweise und eine Familien-Ansicht – arbeitet, schläft oder frei.">
+<meta name="theme-color" content="#F5F5F7">
+<meta name="color-scheme" content="light dark">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png?v=1793522017" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=1793522017">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ShiftFlow">
+<script>try{var t=localStorage.getItem("sf-theme");if(t&&t!=="auto")document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="app.css?v=1793522017">
+</head>
+<body>
+<div id="splash" class="splash" role="status" aria-live="polite">
+  <div class="sp-in">
+    <img class="sp-logo" src="icons/icon-512.png?v=1793522017" alt="ShiftFlow" width="168" height="168">
+    <h1 class="sp-title" id="sp-title">Willkommen bei ShiftFlow</h1>
+    <p class="sp-sub">Schichtplan · Schlaf · Familie</p>
+    <div class="sp-bar" role="progressbar" aria-label="ShiftFlow wird geladen" aria-valuemin="0" aria-valuemax="100"><span id="sp-fill"></span></div>
+    <p class="sp-hint">Dein Plan wird geladen …</p>
+  </div>
+</div>
+<script>
+// Ladebildschirm: nur beim Kaltstart (diese Seite wird bei In-App-Navigation nicht neu geladen), genau 5 Sek., dann Überblenden
+(function () {
+  var sp = document.getElementById("splash"), DUR = 5000, t0 = performance.now();
+  if (window.SF_NO_SPLASH) { sp.remove(); return; }
+  try { var n = localStorage.getItem("sf-splash-name"); if (n && !/^#\/?f\//.test(location.hash)) document.getElementById("sp-title").textContent = "Willkommen zurück, " + n; } catch (e) {}
+  var fill = document.getElementById("sp-fill"), bar = fill.parentNode;
+  function step(now) {
+    var p = Math.min(1, (now - t0) / DUR);
+    fill.style.transform = "scaleX(" + p + ")"; bar.setAttribute("aria-valuenow", Math.round(p * 100));
+    if (p < 1) return requestAnimationFrame(step);
+    sp.classList.add("out"); window.SF_SPLASH_DONE = true;
+    setTimeout(function () { sp.remove(); document.documentElement.classList.remove("splashing"); }, 450);
+  }
+  document.documentElement.classList.add("splashing");
+  requestAnimationFrame(step);
+  window.SF_SPLASH_NAME = function (name) { var t = document.getElementById("sp-title"); if (t && name && !/^#\/?f\//.test(location.hash)) t.textContent = "Willkommen zurück, " + name; };
+})();
+</script>
+<div id="app"><div class="boot"><img src="icons/icon-192.png?v=1793522017" alt="" width="72" height="72"><p>ShiftFlow wird geladen …</p></div></div>
+<div id="toasts" aria-live="polite"></div>
+<script src="config.js?v=1793522017"></script>
+<script src="vendor/supabase.js"></script>
+<script src="logic.js?v=1793522017"></script>
+<script src="demo.js?v=1793522017"></script>
+<script src="app.js?v=1793522017"></script>
+</body>
+</html>

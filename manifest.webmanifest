@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "ShiftFlow – Schichtplan, Schlaf & Familie",
+  "short_name": "ShiftFlow",
+  "description": "Schichtplan mit Rotationen, schichtgerechte Schlaf-Hinweise und eine Familien-Ansicht: arbeitet, schläft oder frei.",
+  "lang": "de",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF3E6",
+  "theme_color": "#FFF3E6",
+  "icons": [
+    { "src": "icons/icon-192.png?v=1793522017", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png?v=1793522017", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png?v=1793522017", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png?v=1793522017", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
